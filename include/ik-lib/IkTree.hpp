@@ -3,13 +3,14 @@
 
 #include "IkNode.hpp"
 
+namespace IkLib {
 class IkTree {
     public:
-        IkTree();
+        explicit IkTree() = default;
 
-        IkNode getNode(int i);
     private:
         IkNode nodes[];
 };
 
+}
 #endif //IKTREE_HPP

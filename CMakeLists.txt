@@ -28,7 +28,6 @@ if(SIM_BUILD_TESTS)
 endif()
 
 add_subdirectory(external)
-include_directories("${CMAKE_SOURCE_DIR}/include")
 add_subdirectory(src)
 
 add_executable(IK-Sim main.cpp)

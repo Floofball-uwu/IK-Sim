@@ -3,12 +3,15 @@
 
 #include "IkTree.hpp"
 
+namespace IkLib {
 class IkSolver {
     public:
-        IkSolver();
+        explicit IkSolver() = default;
 
     private:
         IkTree ikTree;
 };
+
+}
 
 #endif //IKSOLVER_HPP
