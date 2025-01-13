@@ -1,6 +1,6 @@
 add_library(iklib
         IkNode.cpp
-        IkTree.cpp
+        IkArm.cpp
         IkSolver.cpp
 )
 

@@ -8,10 +8,10 @@ namespace IkLib {
     public:
         IkNode();
 
-        IkLib::Axis rotationAxis = IkLib::Axis::X;
+        Axis rotationAxis = X;
 
-        float getRotation();
-        float getLength();
+        float getRotation() const;
+        float getLength() const;
 
         void setRotation(float rads);
         void setLength(float length);

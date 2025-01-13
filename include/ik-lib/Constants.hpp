@@ -6,7 +6,7 @@
 
 namespace IkLib {
     //Replace as needed with whatever value system uses
-    float PI = std::numbers::pi;
+    inline float PI = std::numbers::pi;
 
     enum Axis {
         X,

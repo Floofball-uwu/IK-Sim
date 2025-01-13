@@ -1,7 +1,7 @@
 #ifndef IKSOLVER_HPP
 #define IKSOLVER_HPP
 
-#include "IkTree.hpp"
+#include "IkArm.hpp"
 
 namespace IkLib {
 class IkSolver {
@@ -9,7 +9,7 @@ class IkSolver {
         explicit IkSolver() = default;
 
     private:
-        IkTree ikTree;
+        IkArm ikArm;
 };
 
 }
