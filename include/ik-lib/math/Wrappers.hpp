@@ -9,6 +9,10 @@ namespace IkLib {
     float cos(float x) { return std::cos(x); }
     float tan(float x) { return std::tan(x); }
 
+    float asin(float x) { return std::asin(x); }
+    float acos(float x) { return std::acos(x); }
+    float atan(float x) { return std::atan(x); }
+	float atan2(float y, float x) { return std::atan2(y, x); }
 }
 
 #endif //WRAPPERS_HPP
