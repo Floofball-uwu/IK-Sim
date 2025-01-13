@@ -5,6 +5,8 @@
 #include <cmath>
 
 namespace IkLib {
+    float sqrt(float x) { return std::sqrt(x); };
+
     float sin(float x) { return std::sin(x); }
     float cos(float x) { return std::cos(x); }
     float tan(float x) { return std::tan(x); }
