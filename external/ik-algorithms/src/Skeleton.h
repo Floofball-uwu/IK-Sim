@@ -1,3 +1,5 @@
+//File modified for project
+
 #pragma once
 
 #include "Vector2.h"
@@ -23,6 +25,9 @@ public:
 
 	/// @brief Adds a bone at the end of the skeleton chain
 	Skeleton& addBone(float length, float angle);
+
+	/// @brief Gets all bones. ADDED FUNCTION
+	std::vector<std::unique_ptr<Bone>>& getBones();
 
 	/// @brief Returns the root bone of the skeleton
 	Bone* rootBone() { return m_root; }
