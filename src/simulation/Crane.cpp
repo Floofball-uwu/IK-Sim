@@ -32,9 +32,9 @@ void Crane::setupBoneMeshes(const std::vector<std::unique_ptr<Bone>>& bones) {
     Object3D* lastChild = this;
     for (const auto& bone : bones) {
         auto m = createMesh(*bone);
+        _childChain.emplace_back(m);
         lastChild->add(m);
         lastChild = m.get();
-        _childChain.emplace_back(lastChild);
         _maxReach += bone->length;
     }
 }
