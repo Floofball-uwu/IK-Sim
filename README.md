@@ -14,5 +14,6 @@ Lastly the goal is to make perhaps a more or less optimized, but fully STL-less 
 - Make scene prettier
 
 Once all above are done:
+- Start with own implementation
 - Fix issues in 2D with some targets being either physically unreachable (limit angles and such) or the IK jumping all over the place. NOTE: CCD is better when constraints exist.
 - Make 3D Inverse Kinematics, will require Quaternions

@@ -43,11 +43,11 @@ std::shared_ptr<threepp::Mesh> Crane::createMesh(const Bone &bone) {
     material->color = threepp::Color::grey;
 
     float height = bone.length;
-    auto geometry = threepp::BoxGeometry::create(gWidth, height, gWidth);
-    geometry->translate(0, height / 2.0f, 0);
+    auto geometry = threepp::BoxGeometry::create(height, gWidth, gWidth);
+    geometry->translate(height / 2.0f, 0, 0);
     auto m = threepp::Mesh::create(geometry, material);
 
-    m->position.y += height;
+    m->position.x += height;
     return m;
 }
 
