@@ -61,7 +61,7 @@ int main() {
     canvas.animate([&] {
         const auto dt = clock.getDelta();
 
-        crane.moveTo(target, X, *solver);
+        crane.moveTo(target, Z, *solver);
 
         renderer.render(scene, camera);
         ui.render();
