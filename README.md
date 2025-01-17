@@ -10,9 +10,8 @@ Then there's the modified 3D counterpart named `ik-algorithms-3d`. The Standard 
 Lastly the goal is to make perhaps a more or less optimized, but fully STL-less version of the 3D one, known as `ik-lib`. This version is then intended to be used on microcontrollers.
 
 # TODO
-- Fix a broken deconstructor present somewhere
 - Implement UI controls
-- Fix axes being not like I want them
+- Fix axes being misaligned between IK stuff and threepp
 - Clean up code
 - Make scene prettier
 
