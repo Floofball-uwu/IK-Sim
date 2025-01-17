@@ -1,9 +1,13 @@
 #pragma once
+//ADDED
+#define _USE_MATH_DEFINES
+//END
 
 #include "IKSolver.h"
 
 #include <numbers>
 #include <cmath>
+#include <cassert>
 
 /// @brief Implementation of the Cyclic Coordinated Descend (CCD) algorithm for solving inverse kinematics
 class CCD : public IKSolver
@@ -24,9 +28,12 @@ public:
 				Vector2 basePivotVec = (pivotPos - currrentBasePos).normalize();
 				Vector2 baseTargetVec = (targetPos - currrentBasePos).normalize();
 
+                if(isnan(baseTargetVec.x())) baseTargetVec = Vector2(0, 0);
+
 				float dot = basePivotVec.dot(baseTargetVec);
 				float det = basePivotVec.cross(baseTargetVec);
-				float rotateAngle = atan2(det, dot);
+
+                float rotateAngle = atan2(det, dot);
 
 				node->angle = node->angle + rotateAngle;
 				node = node->parent;

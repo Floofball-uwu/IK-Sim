@@ -13,17 +13,15 @@ float Crane::getMaxReach() const {
     return _maxReach;
 }
 
-//TODO: Add pivot children which are rotated instead of the meshes for ebtter visuals
+//TODO: Add pivot children which are rotated instead of the meshes for better visuals
 void Crane::moveTo(const Vector2& pos, const Axis axis, IKSolver& solver) const {
-    if(pos.length() > getMaxReach()) return;
+    if(pos.length() > getMaxReach()) return; //Move this somewhere else later on
 
     solver.solve(*_skeleton, pos, maxIkIterations, posEpsilon);
     auto& bones = _skeleton->getBones();
     for (int i = 0; i < bones.size(); i++) {
         auto& b = bones[i];
-        threepp::Euler e;
-        e.setFromVector3(axisToVector(axis) * b->angle);
-        _childChain[i]->setRotationFromEuler(e);
+        _childChain[i]->setRotationFromAxisAngle(axisToVector(axis), b->angle);
     }
 }
 

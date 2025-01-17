@@ -28,30 +28,39 @@ int main() {
     threepp::Scene scene;
     scene.background = threepp::Color(0.5f, 0.5f, 0.5f);
 
-    ImguiFunctionalContext ui(canvas.windowPtr(), [&] {
-        ImGui::SetNextWindowPos({}, 0, {});
-               ImGui::SetNextWindowSize({230, 0}, 0);
-               ImGui::Begin("Mesh settings");
-
-               ImGui::End();
-    });
-    // ui.makeDpiAware(); // to increase imgui size on high DPI screens
-
     //FABRIK NaNs out when something out of reach
     auto solver = std::make_unique<CCD>();
     Crane crane = Crane(createSkeleton(4));
     crane.position.y = -2;
     scene.add(crane);
 
-    Vector2 target = Vector2(1, 0.5f);
+    threepp::Vector3 targetVec;
+    Vector2 target = Vector2(0, 0.5f);
+    Vector2 oldTarget;
     float accum = 0.0f;
+
+    ImguiFunctionalContext ui(canvas.windowPtr(), [&] {
+        ImGui::SetNextWindowPos({}, 0, {});
+        ImGui::SetNextWindowSize({460, 0}, 0);
+        ImGui::Begin("Mesh settings");
+
+        if(ImGui::SliderFloat("X", &targetVec.x, crane.getMaxReach() + 5, -crane.getMaxReach() - 5)) {
+            target = Vector2(targetVec.x, targetVec.y);
+        }
+
+        if(ImGui::SliderFloat("Y", &targetVec.y, crane.getMaxReach() + 5, -crane.getMaxReach() - 5)) {
+            target = Vector2(targetVec.x, targetVec.y);
+        }
+
+        ImGui::SliderFloat("Z", &targetVec.z, crane.getMaxReach() + 5, -crane.getMaxReach() - 5);
+
+        ImGui::End();
+    });
 
     threepp::Clock clock;
     canvas.animate([&] {
         const auto dt = clock.getDelta();
 
-        accum += dt;
-        target += Vector2(2*std::sin(4*accum), 0) * dt;
         crane.moveTo(target, X, *solver);
 
         renderer.render(scene, camera);
