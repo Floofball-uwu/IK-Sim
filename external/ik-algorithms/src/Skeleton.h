@@ -14,6 +14,9 @@ struct Bone
 	Bone* child = nullptr;
 	float length = 1.0f;
 	float angle = 0.0f;
+	//To be used
+	float maxAngle = std::numeric_limits<float>::infinity();
+    float minAngle = -std::numeric_limits<float>::infinity();
 };
 
 /// @brief A simple skeletal structure composed of a chain of bones
