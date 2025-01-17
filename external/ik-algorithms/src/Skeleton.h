@@ -27,7 +27,7 @@ public:
 	Skeleton& addBone(float length, float angle);
 
 	/// @brief Gets all bones. ADDED FUNCTION
-	std::vector<std::unique_ptr<Bone>>& getBones();
+	const std::vector<std::unique_ptr<Bone>>& getBones() const;
 
 	/// @brief Returns the root bone of the skeleton
 	Bone* rootBone() { return m_root; }

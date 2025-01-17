@@ -9,8 +9,13 @@ Then there's the modified 3D counterpart named `ik-algorithms-3d`. The Standard 
 
 Lastly the goal is to make perhaps a more or less optimized, but fully STL-less version of the 3D one, known as `ik-lib`. This version is then intended to be used on microcontrollers.
 
-## Assumptions within the ik-lib
-- No access to the C++ Standard Library, because Arduino... or microcontrollers in general
-  - Exceptions: common math functions like trigonometric ones and such.
-    - In such cases, a wrapper function will be made for easy replacement with an existing implementation.
-- Exception handling? What exception handling?
+# TODO
+- Fix a broken deconstructor present somewhere
+- Implement UI controls
+- Fix axes being not like I want them
+- Clean up code
+- Make scene prettier
+
+Once all above are done:
+- Fix issues in 2D with some targets being either physically unreachable (limit angles and such) or the IK jumping all over the place. NOTE: CCD is better when constraints exist.
+- Make 3D Inverse Kinematics, will require Quaternions

@@ -22,6 +22,10 @@ Skeleton& Skeleton::addBone(float length, float angle)
 	return *this;
 }
 
+const std::vector<std::unique_ptr<Bone>>& Skeleton::getBones() const {
+	return m_bones;
+}
+
 Vector2 Skeleton::boneBasePosition(Bone* node)
 {
 	auto currentBone = m_root;
