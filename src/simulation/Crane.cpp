@@ -27,15 +27,6 @@ void Crane::moveTo(const Vector2& pos, const Axis axis, IKSolver& solver) const 
     }
 }
 
-void Crane::parseIkData(const std::vector<float>& angles, const std::vector<Axis>& axis) {
-    unsigned long long its = std::min(angles.size(), axis.size());
-    for(int i = 0; i < its; i++) {
-        Object3D* c = children[i];
-        if(c == nullptr) continue;
-        c->rotateOnAxis(axisToVector(axis[i]), angles[i]);
-    }
-}
-
 void Crane::setupBoneMeshes(const std::vector<std::unique_ptr<Bone>>& bones) {
     _maxReach = 0.0f;
     Object3D* lastChild = this;

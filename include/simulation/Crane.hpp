@@ -16,9 +16,6 @@ public:
   float getMaxReach() const;
   void moveTo(const Vector2& pos, const Axis axis, IKSolver& solver) const;
 
-  /// Sets rotation of each bone appropriately, one by one, around the determined axis
-  void parseIkData(const std::vector<float>& angles, const std::vector<Axis>& axis);
-
 private:
   float _maxReach = 0.0f;
   std::shared_ptr<Skeleton> _skeleton;
