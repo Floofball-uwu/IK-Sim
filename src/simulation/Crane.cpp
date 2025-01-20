@@ -15,8 +15,6 @@ float Crane::getMaxReach() const {
 
 //TODO: Add pivot children which are rotated instead of the meshes for better visuals
 void Crane::moveTo(const Vector2& pos, const Axis axis, IKSolver& solver) const {
-    if(pos.length() > getMaxReach()) return; //Move this somewhere else later on
-
     solver.solve(*_skeleton, pos, maxIkIterations, posEpsilon);
     auto& bones = _skeleton->getBones();
     for (int i = 0; i < bones.size(); i++) {
