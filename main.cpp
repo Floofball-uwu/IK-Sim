@@ -20,10 +20,10 @@ int main() {
     threepp::Canvas canvas;
     threepp::GLRenderer renderer{canvas.size()};
 
-    threepp::PerspectiveCamera camera(60, canvas.aspect(), 0.1, 1000);
-    camera.position.z = 5;
+    auto camera = threepp::PerspectiveCamera::create(60, canvas.aspect(), 0.01, 100);
+    camera->position.z = 5;
 
-    threepp::OrbitControls controls(camera, canvas);
+    threepp::OrbitControls controls(*camera, canvas);
 
     threepp::Scene scene;
     scene.background = threepp::Color(0.5f, 0.5f, 0.5f);
@@ -57,13 +57,28 @@ int main() {
         ImGui::End();
     });
 
+    threepp::HUD hud(canvas.size());
+    canvas.onWindowResize([&](threepp::WindowSize size) {
+        camera->aspect = size.aspect();
+        camera->updateProjectionMatrix();
+        renderer.setSize(size);
+
+        hud.setSize(size);
+    });
+
+    threepp::IOCapture capture{};
+    capture.preventMouseEvent = [] {
+        return ImGui::GetIO().WantCaptureMouse;
+    };
+    canvas.setIOCapture(&capture);
+
     threepp::Clock clock;
     canvas.animate([&] {
         const auto dt = clock.getDelta();
 
         crane.moveTo(target, Z, *solver);
 
-        renderer.render(scene, camera);
+        renderer.render(scene, *camera);
         ui.render();
     });
 }
