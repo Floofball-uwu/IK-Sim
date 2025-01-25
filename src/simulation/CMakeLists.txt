@@ -1,5 +1,6 @@
 add_library(simulation
         Crane.cpp
+        Simulation.cpp
 )
 
 target_include_directories(simulation PUBLIC "${CMAKE_SOURCE_DIR}/include")
