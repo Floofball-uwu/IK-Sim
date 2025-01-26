@@ -10,10 +10,6 @@ Then there's the modified 3D counterpart named `ik-algorithms-3d`. The Standard 
 Lastly the goal is to make perhaps a more or less optimized, but fully STL-less version of the 3D one, known as `ik-lib`. This version is then intended to be used on microcontrollers.
 
 # TODO
-- Clean up code
-- Make scene prettier
-
-Once all above are done:
 - Start with own implementation
 - Fix issues in 2D with some targets being either physically unreachable (limit angles and such) or the IK jumping all over the place. NOTE: CCD is better when constraints exist.
 - If constraints don't fix it, figure out how to pick a preferred angle when solving IK.
