@@ -1,3 +1,5 @@
+#include <simulation/Simulation.hpp>
+
 #include "CCD.h"
 #include "FABRIK.h"
 #include "Skeleton.h"
@@ -16,30 +18,19 @@ std::shared_ptr<Skeleton> createSkeleton(int bones) {
 }
 
 int main() {
-
-    threepp::Canvas canvas;
-    threepp::GLRenderer renderer{canvas.size()};
-
-    auto camera = threepp::PerspectiveCamera::create(60, canvas.aspect(), 0.01, 100);
-    camera->position.z = 5;
-
-    threepp::OrbitControls controls(*camera, canvas);
-
-    threepp::Scene scene;
-    scene.background = threepp::Color(0.5f, 0.5f, 0.5f);
-
+    Simulation sim = Simulation();
     //FABRIK NaNs out when something out of reach
     auto solver = std::make_unique<CCD>();
     Crane crane = Crane(createSkeleton(4));
-    crane.position.y = -2;
-    scene.add(crane);
+    crane.position = {0, 0, 0};
+    sim.getScene()->add(crane);
 
     threepp::Vector3 targetVec;
     Vector2 target = Vector2(0, 0.5f);
     Vector2 oldTarget;
     float accum = 0.0f;
 
-    ImguiFunctionalContext ui(canvas.windowPtr(), [&] {
+    auto ui = std::make_unique<ImguiFunctionalContext>(sim.getCanvas().windowPtr(), [&] {
         ImGui::SetNextWindowPos({}, 0, {});
         ImGui::SetNextWindowSize({460, 0}, 0);
         ImGui::Begin("Mesh settings");
@@ -57,28 +48,12 @@ int main() {
         ImGui::End();
     });
 
-    threepp::HUD hud(canvas.size());
-    canvas.onWindowResize([&](threepp::WindowSize size) {
-        camera->aspect = size.aspect();
-        camera->updateProjectionMatrix();
-        renderer.setSize(size);
-
-        hud.setSize(size);
-    });
-
-    threepp::IOCapture capture{};
-    capture.preventMouseEvent = [] {
-        return ImGui::GetIO().WantCaptureMouse;
-    };
-    canvas.setIOCapture(&capture);
+    sim.setupUi(std::move(ui));
 
     threepp::Clock clock;
-    canvas.animate([&] {
+    sim.update([&] {
         const auto dt = clock.getDelta();
 
         crane.moveTo(target, Z, *solver);
-
-        renderer.render(scene, *camera);
-        ui.render();
     });
 }
