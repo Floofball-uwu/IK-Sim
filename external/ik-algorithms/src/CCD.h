@@ -28,6 +28,7 @@ public:
 				Vector2 basePivotVec = (pivotPos - currrentBasePos).normalize();
 				Vector2 baseTargetVec = (targetPos - currrentBasePos).normalize();
 
+				//ADDED NAN-check
                 if(isnan(baseTargetVec.x())) baseTargetVec = Vector2(0, 0);
 
 				float dot = basePivotVec.dot(baseTargetVec);
@@ -35,7 +36,13 @@ public:
 
                 float rotateAngle = atan2(det, dot);
 
+				//Clamping works, but is a bit... not like desired.
 				node->angle = node->angle + rotateAngle;
+
+				//ADDED
+				//float rotationBack =
+				//END
+
 				node = node->parent;
 			}
 
