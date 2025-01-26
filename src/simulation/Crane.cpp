@@ -33,12 +33,13 @@ void Crane::setupBoneMeshes(const std::vector<std::unique_ptr<Bone>>& bones) {
         lastChild = m.get();
         _maxReach += bone->length;
     }
+    _childChain[0]->position = position;
 }
 
 std::shared_ptr<threepp::Mesh> Crane::createMesh(const Bone &bone) {
     const float gWidth = 0.2f;
     auto material = threepp::MeshPhongMaterial::create();
-    material->color = threepp::Color::grey;
+    material->color = threepp::Color(0.3f, 0.3f, 0.4f);
 
     float height = bone.length;
     auto geometry = threepp::BoxGeometry::create(height, gWidth, gWidth);

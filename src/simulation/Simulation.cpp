@@ -44,20 +44,13 @@ void Simulation::setup() {
         _hud->setSize(size);
     });
 
-    setupWindow();
-}
-
-void Simulation::setupWindow() {
-
 }
 
 void Simulation::setupDefaultScene() {
-    _scene->background = threepp::Color(0.5f, 0.5f, 0.5f);
+    auto light = threepp::DirectionalLight::create({1.0f, 1.0f, 1.0f});
+    light->position = {0, 10, 5};
 
-    auto g = threepp::BoxGeometry::create();
-    auto m = threepp::MeshBasicMaterial::create();
-    auto mesh = threepp::Mesh::create(g, m);
-    _scene->add(mesh);
+    _scene->add(light);
 }
 
 

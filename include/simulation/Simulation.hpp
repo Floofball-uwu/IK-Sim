@@ -28,7 +28,6 @@ private:
     std::unique_ptr<ImguiFunctionalContext> _imgui;
 
     void setup();
-    void setupWindow();
 };
 
 #endif //SIMULATION_HPP

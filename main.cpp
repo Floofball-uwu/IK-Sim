@@ -17,13 +17,31 @@ std::shared_ptr<Skeleton> createSkeleton(int bones) {
     return skeleton;
 }
 
+auto createGrid() {
+
+    unsigned int size = 30;
+    auto material = threepp::ShadowMaterial::create();
+    auto plane = threepp::Mesh::create(threepp::PlaneGeometry::create(size, size), material);
+    plane->rotation.x = -threepp::math::PI / 2;
+    plane->receiveShadow = true;
+
+    auto grid = threepp::GridHelper::create(size, size, threepp::Color::lawngreen);
+    grid->rotation.x = threepp::math::PI / 2;
+    plane->add(grid);
+
+    return plane;
+}
+
 int main() {
     Simulation sim = Simulation();
+    sim.setupDefaultScene();
+
     //FABRIK NaNs out when something out of reach
     auto solver = std::make_unique<CCD>();
     Crane crane = Crane(createSkeleton(4));
     crane.position = {0, 0, 0};
     sim.getScene()->add(crane);
+    sim.getScene()->add(createGrid());
 
     threepp::Vector3 targetVec;
     Vector2 target = Vector2(0, 0.5f);
@@ -47,7 +65,6 @@ int main() {
 
         ImGui::End();
     });
-
     sim.setupUi(std::move(ui));
 
     threepp::Clock clock;
