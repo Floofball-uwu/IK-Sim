@@ -8,8 +8,8 @@
 
 class Crane : public threepp::Object3D{
 public:
-  float posEpsilon = 0.5f;
-  int maxIkIterations = 10;
+  float posEpsilon = 0.001f;
+  int maxIkIterations = 100;
 
   Crane(const std::shared_ptr<Skeleton>& skeleton);
 

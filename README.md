@@ -11,6 +11,7 @@ Lastly the goal is to make perhaps a more or less optimized, but fully STL-less 
 
 # TODO
 - Start with own implementation
-- Fix issues in 2D with some targets being either physically unreachable (limit angles and such) or the IK jumping all over the place. NOTE: CCD is better when constraints exist.
+  - Add an interpolator for continuous movement (see: threepp IK example controller). Interpolate the angles, not position.
+  - Find a way to trace lines to draw the end effectors path!
 - If constraints don't fix it, figure out how to pick a preferred angle when solving IK.
 - Make 3D Inverse Kinematics, will require Quaternions

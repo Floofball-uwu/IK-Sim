@@ -14,17 +14,17 @@ std::shared_ptr<Skeleton> createSkeleton(int bones) {
         skeleton->addBone(1.0f, 0);
     }
     auto& b = skeleton->getBones();
-    b[0]->maxAngle = 3*threepp::math::PI / 4;
-    b[0]->minAngle = threepp::math::PI / 4;
+    b[0]->maxAngle = threepp::math::PI;
+    b[0]->minAngle = 0;
 
-    b[1]->maxAngle = threepp::math::PI / 6;
-    b[1]->minAngle = -threepp::math::PI / 6;
+    b[1]->maxAngle = threepp::math::PI / 2;
+    b[1]->minAngle = 0;
 
-    b[2]->maxAngle = 0;
-    b[2]->minAngle = -threepp::math::PI / 6;
+    b[2]->maxAngle = threepp::math::PI / 6;
+    b[2]->minAngle = 0;
 
     b[3]->maxAngle = threepp::math::PI / 2;
-    b[3]->minAngle = -threepp::math::PI / 2;
+    b[3]->minAngle = 0;
 
     return skeleton;
 }

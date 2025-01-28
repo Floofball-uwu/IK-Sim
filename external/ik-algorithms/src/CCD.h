@@ -36,12 +36,8 @@ public:
 
                 float rotateAngle = atan2(det, dot);
 
-				//Clamping works, but is a bit... not like desired.
-				node->angle = node->angle + rotateAngle;
-
-				//ADDED
-				//float rotationBack =
-				//END
+				//Clamping, needs an interpolator to work well though!
+				node->angle = limitAngle(rotateAngle, node);
 
 				node = node->parent;
 			}
@@ -53,5 +49,12 @@ public:
 
 		// Algorithm finished by reaching max Iterations -> pivot is not near enough to the target
 		return false;
+	}
+
+	float limitAngle(float rotateAngle, const Bone* node) const {
+		float ang = rotateAngle + node->angle;
+		if(ang > node->maxAngle) return node->maxAngle;
+		if (ang < node->minAngle) return node->minAngle;
+		return ang;
 	}
 };
