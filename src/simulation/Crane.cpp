@@ -24,9 +24,7 @@ void Crane::update(float const dt) {
         auto& b = bones[i];
         auto& child = _childChain[i];
 
-        //WHY does it rotate like crazy sometimes??
-        float ang = std::lerp(child->rotation.z, b->angle, dt);
-        //End of issue
+        float ang = radLerp(child->rotation.z, b->angle, dt);
         child->setRotationFromAxisAngle(axisToVector(Z), ang);
     }
 }

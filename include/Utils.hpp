@@ -19,4 +19,10 @@ static threepp::Vector3 axisToVector(Axis axis) {
         }
 }
 
+static float radLerp(double from, double target, float t) {
+    float CS = (1 - t) * std::cos(from) + t * std::cos(target);
+    float SN = (1 - t) * std::sin(from) + t * std::sin(target);
+    return std::atan2(SN, CS);
+}
+
 #endif //UTILS_HPP
