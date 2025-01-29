@@ -13,15 +13,24 @@ float Crane::getMaxReach() const {
     return _maxReach;
 }
 
-//TODO: Add pivot children which are rotated instead of the meshes for better visuals
-void Crane::moveTo(const Vector2& pos, const Axis axis, IKSolver& solver) const {
+//TODO: Store axis of rotation in the the skellington
+void Crane::solveAngles(const Vector2& pos, IKSolver& solver) const {
     solver.solve(*_skeleton, pos, maxIkIterations, posEpsilon);
+}
+
+void Crane::update(float const dt) {
     auto& bones = _skeleton->getBones();
     for (int i = 0; i < bones.size(); i++) {
         auto& b = bones[i];
-        _childChain[i]->setRotationFromAxisAngle(axisToVector(axis), b->angle);
+        auto& child = _childChain[i];
+
+        //WHY does it rotate like crazy sometimes??
+        float ang = std::lerp(child->rotation.z, b->angle, dt);
+        //End of issue
+        child->setRotationFromAxisAngle(axisToVector(Z), ang);
     }
 }
+
 
 void Crane::setupBoneMeshes(const std::vector<std::unique_ptr<Bone>>& bones) {
     _maxReach = 0.0f;

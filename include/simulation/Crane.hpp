@@ -14,7 +14,8 @@ public:
   Crane(const std::shared_ptr<Skeleton>& skeleton);
 
   float getMaxReach() const;
-  void moveTo(const Vector2& pos, const Axis axis, IKSolver& solver) const;
+  void solveAngles(const Vector2& pos, IKSolver& solver) const;
+  void update(float const dt);
 
 private:
   float _maxReach = 0.0f;

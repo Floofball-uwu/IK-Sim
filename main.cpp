@@ -50,15 +50,12 @@ int main() {
 
     //FABRIK NaNs out when something out of reach
     auto solver = std::make_unique<CCD>();
-    Crane crane = Crane(createSkeleton(4));
+    Crane crane = Crane(createSkeleton(10));
     crane.position = {0, 0, 0};
     sim.getScene()->add(crane);
     sim.getScene()->add(createGrid());
 
     threepp::Vector3 targetVec;
-    Vector2 target = Vector2(0, 0.5f);
-    Vector2 oldTarget;
-    float accum = 0.0f;
 
     auto ui = std::make_unique<ImguiFunctionalContext>(sim.getCanvas().windowPtr(), [&] {
         ImGui::SetNextWindowPos({}, 0, {});
@@ -66,11 +63,11 @@ int main() {
         ImGui::Begin("Mesh settings");
 
         if(ImGui::SliderFloat("X", &targetVec.x, crane.getMaxReach() + 5, -crane.getMaxReach() - 5)) {
-            target = Vector2(targetVec.x, targetVec.y);
+            crane.solveAngles(Vector2(targetVec.x, targetVec.y), *solver);
         }
 
         if(ImGui::SliderFloat("Y", &targetVec.y, crane.getMaxReach() + 5, -crane.getMaxReach() - 5)) {
-            target = Vector2(targetVec.x, targetVec.y);
+            crane.solveAngles(Vector2(targetVec.x, targetVec.y), *solver);
         }
 
         ImGui::SliderFloat("Z", &targetVec.z, crane.getMaxReach() + 5, -crane.getMaxReach() - 5);
@@ -83,6 +80,6 @@ int main() {
     sim.update([&] {
         const auto dt = clock.getDelta();
 
-        crane.moveTo(target, Z, *solver);
+        crane.update(dt * 4);
     });
 }
