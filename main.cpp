@@ -50,7 +50,7 @@ int main() {
 
     //FABRIK NaNs out when something out of reach
     auto solver = std::make_unique<CCD>();
-    Crane crane = Crane(createSkeleton(10));
+    Crane crane = Crane(createSkeleton(4));
     crane.position = {0, 0, 0};
     sim.getScene()->add(crane);
     sim.getScene()->add(createGrid());
