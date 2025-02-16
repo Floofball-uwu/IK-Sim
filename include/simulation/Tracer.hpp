@@ -9,8 +9,8 @@
 
 class Tracer {
 public:
-    unsigned int maxPoints = 10000;
-    float distanceBetweenPoints = 0.001f;
+    unsigned int maxPoints = 512;
+    float distanceBetweenPoints = 1.0f;
     Tracer();
 
     const std::shared_ptr<threepp::Line> getPathMesh();

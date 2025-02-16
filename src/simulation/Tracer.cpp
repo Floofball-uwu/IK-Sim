@@ -22,20 +22,26 @@ void Tracer::setVisibility(const bool visible) {
     _pathMesh->visible = visible;
 }
 
+//BUG: Flickering caused by cached GPU meshes! Need to clear them somehow.
 void Tracer::addPoint(const threepp::Vector3& p) {
-    if(!_pathPoints.empty()) {
-        if(_pathPoints.size() == maxPoints)
-            _pathPoints.erase(_pathPoints.begin());
+    bool redraw = false;
 
-        if(_pathPoints.back().lengthSq() - p.lengthSq() >= distanceBetweenPoints*distanceBetweenPoints) {
-            _pathPoints.push_back(p);
+    if(!_pathPoints.empty()) {
+        if(_pathPoints.size() >= maxPoints) {
+            _pathPoints.erase(_pathPoints.begin());
+            redraw = true;
         }
 
-        if(_pathPoints.size() % 16 == 0) {
+        if(std::abs(_pathPoints.back().lengthSq() - p.lengthSq()) >= distanceBetweenPoints*distanceBetweenPoints) {
+            _pathPoints.push_back(p);
+            redraw = true;
+        }
+
+        if(redraw) {
             _pathMesh->geometry()->setFromPoints(_pathPoints);
         }
+        
     } else if(_pathPoints.empty()) {
         _pathPoints.push_back(p);
     }
-
 }
