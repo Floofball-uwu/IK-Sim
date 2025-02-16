@@ -1,4 +1,5 @@
 #include <simulation/Simulation.hpp>
+#include <simulation/Tracer.hpp>
 
 #include "CCD.h"
 #include "FABRIK.h"
@@ -54,6 +55,9 @@ int main() {
     crane.position = {0, 0, 0};
     sim.getScene()->add(crane);
     sim.getScene()->add(createGrid());
+
+    crane.tracer = std::make_shared<Tracer>();
+    sim.getScene()->add(crane.tracer->getPathMesh());
 
     threepp::Vector3 targetVec;
 

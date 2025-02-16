@@ -27,6 +27,17 @@ void Crane::update(float const dt) {
         float ang = radLerp(child->rotation.z, b->angle, dt);
         child->setRotationFromAxisAngle(axisToVector(Z), ang);
     }
+
+    addTracerPoint();
+}
+
+void Crane::addTracerPoint() {
+    if(_childChain.empty() || tracer == nullptr) return;
+
+    auto& endEffector = _childChain.back();
+    threepp::Vector3 point = endEffector->position;
+    endEffector->localToWorld(point);
+    tracer->addPoint(point);
 }
 
 
