@@ -28,7 +28,7 @@ void Crane::update(float const dt) {
         child->setRotationFromAxisAngle(axisToVector(Z), ang);
     }
 
-    addTracerPoint();
+    //addTracerPoint(); //The stupid threepp line rendering doesnt work like expected
 }
 
 void Crane::addTracerPoint() {

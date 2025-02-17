@@ -11,7 +11,5 @@ Lastly the goal is to make perhaps a more or less optimized, but fully STL-less 
 
 # TODO
 - Start with own implementation
-  - Add an interpolator for continuous movement (see: threepp IK example controller). Interpolate the angles, not position.
-  - Find a way to trace lines to draw the end effectors path!
-- If constraints don't fix it, figure out how to pick a preferred angle when solving IK.
-- Make 3D Inverse Kinematics, will require Quaternions
+- Make 3D using multiple 2D planar solvers, one for each axis.
+- Perhaps somehow smartify the IK solver regarding picking angles and such. (Preferred angles)

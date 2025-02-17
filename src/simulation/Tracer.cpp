@@ -22,7 +22,7 @@ void Tracer::setVisibility(const bool visible) {
     _pathMesh->visible = visible;
 }
 
-//BUG: Flickering caused by cached GPU meshes! Need to clear them somehow.
+//BUG: Flickering caused by threepp's triangulation! Because apparently it is a SHADER for a MESH and not a goddamn actual line!!!!!!!!
 void Tracer::addPoint(const threepp::Vector3& p) {
     bool redraw = false;
 
