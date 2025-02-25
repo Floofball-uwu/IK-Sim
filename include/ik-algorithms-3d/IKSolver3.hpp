@@ -8,7 +8,7 @@
 class IKSolver3
 {
 public:
-    IKSolver3(IKSolver& subsolver);
+    IKSolver3() = default;
     virtual ~IKSolver3() = default;
 
     /// @brief Interface to solve the inverse kinematics problem
@@ -17,9 +17,11 @@ public:
     /// @param maxIterations The maximum number of iterations to solve the problem
     /// @param epsilon The maximum deviation from the target position
     /// @return Returns true if the end effector is within epsilon from the target before max iterations are reached else returns false
-    virtual bool solve(std::array<Skeleton, 3>& skeletons, const threepp::Vector3& targetPos, int maxIterations, float epsilon) = 0;
+    virtual bool solve(std::vector<Skeleton>& skeletons, const threepp::Vector3& targetPos, int maxIterations, float epsilon) = 0;
+
 protected:
     IKSolver& _subSolver;
+
 };
 
 #endif //IKSOLVER3_HPP

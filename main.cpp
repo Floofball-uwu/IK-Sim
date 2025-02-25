@@ -1,3 +1,4 @@
+#include <ik-algorithms-3d/CCD3.hpp>
 #include <simulation/Simulation.hpp>
 #include <simulation/Tracer.hpp>
 
@@ -50,7 +51,7 @@ int main() {
     sim.setupDefaultScene();
 
     //FABRIK NaNs out when something out of reach
-    auto solver = std::make_unique<CCD>();
+    auto solver = std::make_unique<CCD3>();
     Crane crane = Crane(createSkeleton(4));
     crane.position = {0, 0, 0};
     sim.getScene()->add(crane);
@@ -67,14 +68,16 @@ int main() {
         ImGui::Begin("Mesh settings");
 
         if(ImGui::SliderFloat("X", &targetVec.x, crane.getMaxReach() + 5, -crane.getMaxReach() - 5)) {
-            crane.solveAngles(Vector2(targetVec.x, targetVec.y), *solver);
+            crane.solveAngles3(threepp::Vector3(targetVec.x, targetVec.y, targetVec.z), *solver);
         }
 
         if(ImGui::SliderFloat("Y", &targetVec.y, crane.getMaxReach() + 5, -crane.getMaxReach() - 5)) {
-            crane.solveAngles(Vector2(targetVec.x, targetVec.y), *solver);
+            crane.solveAngles3(threepp::Vector3(targetVec.x, targetVec.y, targetVec.z), *solver);
         }
 
-        ImGui::SliderFloat("Z", &targetVec.z, crane.getMaxReach() + 5, -crane.getMaxReach() - 5);
+        if(ImGui::SliderFloat("Z", &targetVec.z, crane.getMaxReach() + 5, -crane.getMaxReach() - 5)) {
+            crane.solveAngles3(threepp::Vector3(targetVec.x, targetVec.y, targetVec.z), *solver);
+        }
 
         ImGui::End();
     });

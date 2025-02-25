@@ -1,6 +1,8 @@
 #ifndef CRANE_HPP
 #define CRANE_HPP
 
+#include <ik-algorithms-3d/IKSolver3.hpp>
+
 #include "Tracer.hpp"
 
 #include "IKSolver.h"
@@ -18,6 +20,7 @@ public:
 
   float getMaxReach() const;
   void solveAngles(const Vector2& pos, IKSolver& solver) const;
+  void solveAngles3(const threepp::Vector3& pos, IKSolver3& solver) const;
   void update(float const dt);
 
 private:

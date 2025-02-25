@@ -18,6 +18,13 @@ void Crane::solveAngles(const Vector2& pos, IKSolver& solver) const {
     solver.solve(*_skeleton, pos, maxIkIterations, posEpsilon);
 }
 
+//TESTING
+void Crane::solveAngles3(const threepp::Vector3& pos, IKSolver3& solver) const {
+    std::vector<Skeleton> arr = std::vector{*_skeleton, *_skeleton, *_skeleton};
+    solver.solve(arr, pos, maxIkIterations, posEpsilon);
+}
+
+
 void Crane::update(float const dt) {
     auto& bones = _skeleton->getBones();
     for (int i = 0; i < bones.size(); i++) {
