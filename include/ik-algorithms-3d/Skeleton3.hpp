@@ -8,6 +8,8 @@
 
 #include <vector>
 
+#include "Skeleton.h"
+
 /// @brief Represents a bone in a skeleton
 struct Bone3
 {
@@ -18,6 +20,8 @@ struct Bone3
     float angle = 0.0f;
     float maxAngle = std::numeric_limits<float>::infinity();
     float minAngle = -std::numeric_limits<float>::infinity();
+
+    [[nodiscard]] bool angleReachable(float angle) const { return maxAngle >= angle && angle >= minAngle; }
 };
 
 /// @brief A simple skeletal structure composed of a chain of bones

@@ -7,7 +7,7 @@
 class CCD3 : public IKSolver3 {
 public:
     CCD3();
-    bool solve(std::vector<Skeleton> &skeletons, const threepp::Vector3 &targetPos, int maxIterations, float epsilon) override;
+    bool solve(std::array<Skeleton, 3> &skeletons, const threepp::Vector3 &targetPos, int maxIterations, float epsilon) override;
 };
 
 #endif //CCD3_HPP

@@ -40,7 +40,7 @@ public:
 	Vector2 boneBasePosition(Bone* bone);
 
 	/// @brief Returns the pivot position of the last bone
-	Vector2 pivotPosition();
+	Vector2 pivotPosition() const;
 
 	/// @brief Returns the count of bones
 	size_t numOfBones() { return m_bones.size(); }

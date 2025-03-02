@@ -1,12 +1,8 @@
 #ifndef UTILS_HPP
 #define UTILS_HPP
-#include "threepp/core/Object3D.hpp"
-#include "threepp/math/Vector3.hpp"
 
-enum Axis {
-        X,
-        Y,
-        Z};
+#include "Enums.hpp"
+#include "threepp/math/Vector3.hpp"
 
 static threepp::Vector3 axisToVector(Axis axis) {
         switch (axis) {

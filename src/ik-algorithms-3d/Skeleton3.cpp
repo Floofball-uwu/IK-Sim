@@ -5,8 +5,8 @@
 #include <numbers>
 
 #include "Utils.hpp"
-#include "threepp/math/Spherical.hpp"
-#include "threepp/math/Vector2.hpp"
+#include "threepp/math/Euler.hpp"
+#include "threepp/math/Vector3.hpp"
 
 Skeleton3& Skeleton3::addBone(float length, float angle, Axis axisOfRotation)
 {
@@ -35,23 +35,26 @@ threepp::Vector3 Skeleton3::boneBasePosition(Bone3* node)
 {
     auto currentBone = m_root;
     Axis currentAxis = X;
-    threepp::Spherical sphericalPos = threepp::Spherical();
+    threepp::Euler angleAccum = threepp::Euler();
+    angleAccum.setOrder(threepp::Euler::XYZ);
     threepp::Vector3 basePosition{};
     while (currentBone != node && currentBone != nullptr)
     {
         currentAxis = currentBone->axisOfRotation;
         switch (currentAxis) {
             case X:
-                sphericalPos.theta += currentBone->angle;
-                break;
+                angleAccum.x += currentBone->angle;
+            break;
             case Y:
-                sphericalPos.phi += currentBone->angle;
-                break;
+                angleAccum.y += currentBone->angle;
+            break;
             case Z:
-                break;
+                angleAccum.z += currentBone->angle;
+            break;
         }
         threepp::Vector3 v{};
-        v.setFromSpherical(sphericalPos);
+        v.applyEuler(angleAccum);
+        v *= currentBone->length;
         basePosition += v;
         currentBone = currentBone->child;
     }
@@ -62,23 +65,25 @@ threepp::Vector3 Skeleton3::pivotPosition()
 {
     auto currentBone = m_root;
     Axis currentAxis = X;
-    threepp::Spherical sphericalPos = threepp::Spherical();
+    threepp::Euler angleAccum = threepp::Euler();
     threepp::Vector3 pivotPos{};
     while (currentBone != nullptr)
     {
         currentAxis = currentBone->axisOfRotation;
         switch (currentAxis) {
             case X:
-                sphericalPos.theta += currentBone->angle;
+                angleAccum.x += currentBone->angle;
             break;
             case Y:
-                sphericalPos.phi += currentBone->angle;
+                angleAccum.y += currentBone->angle;
             break;
             case Z:
-                break;
+                angleAccum.z += currentBone->angle;
+            break;
         }
         threepp::Vector3 v{};
-        v.setFromSpherical(sphericalPos);
+        v.applyEuler(angleAccum);
+        v *= currentBone->length;
         pivotPos += v;
         currentBone = currentBone->child;
     }

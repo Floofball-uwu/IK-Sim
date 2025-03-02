@@ -5,30 +5,13 @@
 #include "threepp/materials/MeshPhongMaterial.hpp"
 #include "threepp/materials/MeshStandardMaterial.hpp"
 
-Crane::Crane(const std::shared_ptr<Skeleton>& skeleton) : _skeleton(skeleton) {
-    setupBoneMeshes(skeleton->getBones());
+Crane::Crane(const std::vector<std::shared_ptr<Bone3>> bones) : _bones(bones) {
+    setupBoneMeshes(bones);
 }
-
-float Crane::getMaxReach() const {
-    return _maxReach;
-}
-
-//TODO: Store axis of rotation in the the skellington
-void Crane::solveAngles(const Vector2& pos, IKSolver& solver) const {
-    solver.solve(*_skeleton, pos, maxIkIterations, posEpsilon);
-}
-
-//TESTING
-void Crane::solveAngles3(const threepp::Vector3& pos, IKSolver3& solver) const {
-    std::vector<Skeleton> arr = std::vector{*_skeleton, *_skeleton, *_skeleton};
-    solver.solve(arr, pos, maxIkIterations, posEpsilon);
-}
-
 
 void Crane::update(float const dt) {
-    auto& bones = _skeleton->getBones();
-    for (int i = 0; i < bones.size(); i++) {
-        auto& b = bones[i];
+    for (int i = 0; i < _bones.size(); i++) {
+        auto& b = _bones[i];
         auto& child = _childChain[i];
 
         float ang = radLerp(child->rotation.z, b->angle, dt);
@@ -48,20 +31,18 @@ void Crane::addTracerPoint() {
 }
 
 
-void Crane::setupBoneMeshes(const std::vector<std::unique_ptr<Bone>>& bones) {
-    _maxReach = 0.0f;
+void Crane::setupBoneMeshes(const std::vector<std::shared_ptr<Bone3>>& bones) {
     Object3D* lastChild = this;
     for (const auto& bone : bones) {
         auto m = createMesh(*bone);
         _childChain.emplace_back(m);
         lastChild->add(m);
         lastChild = m.get();
-        _maxReach += bone->length;
     }
     _childChain[0]->position = position;
 }
 
-std::shared_ptr<threepp::Mesh> Crane::createMesh(const Bone &bone) {
+std::shared_ptr<threepp::Mesh> Crane::createMesh(const Bone3 &bone) {
     const float gWidth = 0.2f;
     auto material = threepp::MeshPhongMaterial::create();
     material->color = threepp::Color(0.3f, 0.3f, 0.4f);

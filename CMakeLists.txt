@@ -31,4 +31,4 @@ add_subdirectory(external)
 add_subdirectory(src)
 
 add_executable(IK-Sim main.cpp)
-target_link_libraries(IK-Sim PRIVATE iklib ik-algorithms simulation threepp imgui)
+target_link_libraries(IK-Sim PRIVATE iklib ik-algorithms ik-algorithms-3d simulation threepp imgui)

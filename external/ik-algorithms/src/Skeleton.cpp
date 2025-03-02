@@ -40,7 +40,7 @@ Vector2 Skeleton::boneBasePosition(Bone* node)
 	return basePosition;
 }
 
-Vector2 Skeleton::pivotPosition()
+Vector2 Skeleton::pivotPosition() const
 {
 	auto currentBone = m_root;
 	float currentAngle = 0.0f;
