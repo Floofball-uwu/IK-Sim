@@ -12,4 +12,5 @@ Lastly the goal is to make perhaps a more or less optimized, but fully STL-less 
 # TODO
 - Start with own implementation
 - Make 3D using multiple 2D planar solvers, one for each axis.
+ - Simplify it to the actual application! Have a Leg class which simply does atan2() for two of the planes, with 2D IK being done for the last.
 - Perhaps somehow smartify the IK solver regarding picking angles and such. (Preferred angles)
